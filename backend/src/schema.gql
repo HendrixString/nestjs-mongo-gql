@@ -1,0 +1,99 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  _id: String!
+  name: String!
+  email: String!
+}
+
+type Asset {
+  _id: String!
+  owner: User
+  title: String!
+  description: String
+  price: Float!
+  coverImage: String
+  isbn: String!
+  tags: [String!]
+}
+
+type GetAssetsPaginatedResponse {
+  assets: [Asset!]!
+  count: Int!
+}
+
+type LoginUserResponse {
+  user: User!
+  authToken: String!
+}
+
+type Query {
+  getHello: String!
+  users: [User!]!
+
+  """This will be like getting the user profile by his id"""
+  userById(id: String!): User!
+  assets(limit: Int = 10, skip: Int = 0, filters: JSONObject): GetAssetsPaginatedResponse!
+  asset(input: ID!): Asset!
+}
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject
+
+type Mutation {
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: String!): User!
+  createAsset(input: CreateAssetInput!): Asset!
+  updateAsset(input: UpdateAssetInput!): Asset!
+  removeAsset(id: String!): Asset!
+  ownAsset(input: BuyAssetInput!): Asset!
+  login(input: LoginUserInput!): LoginUserResponse!
+  signup(input: CreateUserInput!): User!
+}
+
+input UpdateUserInput {
+  name: String
+  email: String
+  password: String
+  address: String
+  _id: String!
+}
+
+input CreateAssetInput {
+  title: String!
+  description: String
+  price: Float!
+  coverImage: String
+  isbn: String!
+  owner: String
+}
+
+input UpdateAssetInput {
+  title: String
+  description: String
+  price: Float
+  coverImage: String
+  isbn: String
+  owner: String
+  _id: String!
+}
+
+input BuyAssetInput {
+  assetId: String!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+  address: String!
+}
