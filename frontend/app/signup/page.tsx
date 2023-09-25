@@ -37,10 +37,11 @@ export default function() {
     user, loading, signup
   } = useUser()
   const [warning, setWarning] = useState<string>()
-  useNavigateIfTrue(user!==undefined, '/')
+  useNavigateIfTrue(Boolean(user), '/')
 
   const onClick = useCallback(
     async () => {
+      setWarning(undefined)
       // extract username and password
       const ep: Partial<User> = fields.reduce(
         (p, c) => {
@@ -57,7 +58,7 @@ export default function() {
         setWarning('sign up error')
       }
       
-    }, []
+    }, [signup]
   )
 
   return (

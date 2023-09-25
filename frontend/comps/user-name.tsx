@@ -10,19 +10,20 @@ const Username: React.FC<{}> = ({ }) => {
   const ref = useRef<HTMLInputElement>(null)
   const router = useRouter()
   const {
-    loading, user
+    loading, user, logout
   } = useUser()
-  console.log(user)
-  const onClick= useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      router.push('login')
-    }, [router]
-  )
+
   return (
     <div>
       <Switch show={user}>
-        <span children={`Hi, ${user?.name}`} />
+        <div className='flex flex-row items-baseline'>
+          <span children={`Hi, ${user?.name}`} />
+          &nbsp;
+          <button children='(logout)' 
+                  onClick={logout}
+                  className='border-b border-dashed border-spacing-3 
+                             border-black text-xs opacity-60' />
+        </div>
         <Link className=''
               href='login'>
           login

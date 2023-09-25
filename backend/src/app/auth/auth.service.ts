@@ -61,6 +61,7 @@ export class AuthService {
       Number(this.configService.get<string>('SALT_ROUND') || '8'),
     );
 
-    return this.userService.createUser({ ...payload, password: hash });
+    const user_new = await this.userService.createUser({ ...payload, password: hash });
+    return this.login(user_new)
   }
 }

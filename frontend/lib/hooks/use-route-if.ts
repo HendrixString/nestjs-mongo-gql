@@ -5,6 +5,7 @@ const useNavigateIfTrue = (condition: boolean, path: string) => {
   const router = useRouter()
   useEffect(
     () => {
+      console.log('condition ', condition)
       if(condition)
         router.push(path)
       // get cached user

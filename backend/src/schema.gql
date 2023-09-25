@@ -52,7 +52,7 @@ type Mutation {
   removeAsset(id: String!): Asset!
   ownAsset(input: BuyAssetInput!): Asset!
   login(input: LoginUserInput!): LoginUserResponse!
-  signup(input: CreateUserInput!): User!
+  signup(input: CreateUserInput!): LoginUserResponse!
 }
 
 input UpdateUserInput {
@@ -95,5 +95,5 @@ input CreateUserInput {
   name: String!
   email: String!
   password: String!
-  address: String!
+  address: String
 }

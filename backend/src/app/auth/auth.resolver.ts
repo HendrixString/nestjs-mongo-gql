@@ -23,7 +23,7 @@ export class AuthResolver {
     return this.authService.login(context.user);
   }
 
-  @Mutation(() => User)
+  @Mutation(() => LoginUserResponse)
   signup(@Args('input') input: CreateUserInput) {
     return this.authService.signup(input);
   }
