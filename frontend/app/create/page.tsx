@@ -77,6 +77,7 @@ export default function() {
         )
       )
     }
+    <Warning children={warning} />
     <Button children='signup' onClick={onClick} />
     <div className='flex flex-row'>
       <span children='Already a user ? ' />
@@ -86,7 +87,6 @@ export default function() {
               className='border-b border-b-black border-dashed tracking-widest' />
       </Link>
     </div>
-    <Warning children={warning} />
   </div>
 </main>
   )

@@ -28,7 +28,7 @@ export class Asset {
 
   @Field(() => String, { nullable: true })
   @Prop()
-  coverImage: string;
+  image: string;
 
   @Field(() => String)
   @Prop({ unique: true })

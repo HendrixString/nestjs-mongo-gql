@@ -4,8 +4,8 @@ interface BaseProps {
 }
   
 
-interface User {
-  email?: string;
-  name?: string;
-  password?: string;
-}
+// interface User {
+//   email?: string;
+//   name?: string;
+//   password?: string;
+// }

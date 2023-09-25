@@ -17,8 +17,8 @@ export class AssetService {
   ) {}
 
   create(input: CreateAssetInput) {
-    const createdBook = new this.assetModel(input);
-    return createdBook.save();
+    const asset = new this.assetModel(input);
+    return asset.save();
   }
 
   async findAll(limit: number, skip: number, filters: object) {
@@ -95,7 +95,7 @@ export class AssetService {
       log('userId ', userId)
       // log('result.owner._id.path ', result.owner._id)
       log('result ', result)
-      const succeeded = true;//result.owner._id === oid
+      const succeeded = result.owner._id.toString() === userId
 
       if(!succeeded)
         throw new Error('Asset is owned by someone else')

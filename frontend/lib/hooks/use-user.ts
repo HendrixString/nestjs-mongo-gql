@@ -1,19 +1,22 @@
 import { useCallback, useEffect, useState } from "react"
 import { getClient } from "@/lib/api/client"
+import { User } from "@/lib/types"
 
 const useUser = () => {
-  const [user, setUser] = useState<User>(getClient()?.auth?.user)
+  // const [user, setUser] = useState<User>(getClient()?.auth?.user)
+  const [user, setUser] = useState<User>()
   const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(
     () => {
       setLoading(true)
+      setUser(getClient()?.auth?.user)
+      setLoading(false);
 
       return getClient().auth.subscribe(
         (u: User) => {
           console.log('sub ', u)
           setUser(u);
-          setLoading(false);
         }
       )
       

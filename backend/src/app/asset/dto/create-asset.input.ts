@@ -22,7 +22,6 @@ export class CreateAssetInput {
   @IsOptional()
   @IsString()
   @MinLength(10)
-  @MaxLength(255)
   description: string;
 
   @Field(() => Float)
@@ -35,7 +34,7 @@ export class CreateAssetInput {
   @Field(() => String, { nullable: true })
   @IsOptional()
   @IsUrl()
-  coverImage: string;
+  image: string;
 
   @Field(() => String)
   @IsString()
@@ -45,4 +44,8 @@ export class CreateAssetInput {
   @IsOptional()
   @IsMongoId()
   owner: MongooSchema.Types.ObjectId;
+
+  @Field(() => [String], { nullable: true, defaultValue: [] })
+  tags: string[];
+
 }

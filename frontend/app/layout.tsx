@@ -4,6 +4,8 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import '@/init-api'
+import Navbar from '@/comps/navbar'
+import { useCallback } from 'react'
 
 console.log('HI')
 
@@ -19,9 +21,19 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const onSearch = useCallback(
+    text => {
+      console.log('text: ', text)
+    }, []
+  )
+
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className + ' --mt-5'}>
+        <Navbar onSearch={onSearch}/>
+        <div children={children}/>
+        {/* hi */}
+      </body>
     </html>
   )
 }

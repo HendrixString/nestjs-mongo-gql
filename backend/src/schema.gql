@@ -14,7 +14,7 @@ type Asset {
   title: String!
   description: String
   price: Float!
-  coverImage: String
+  image: String
   isbn: String!
   tags: [String!]
 }
@@ -67,18 +67,20 @@ input CreateAssetInput {
   title: String!
   description: String
   price: Float!
-  coverImage: String
+  image: String
   isbn: String!
   owner: String
+  tags: [String!] = []
 }
 
 input UpdateAssetInput {
   title: String
   description: String
   price: Float
-  coverImage: String
+  image: String
   isbn: String
   owner: String
+  tags: [String!] = []
   _id: String!
 }
 

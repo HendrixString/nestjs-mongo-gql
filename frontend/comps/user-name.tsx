@@ -15,7 +15,7 @@ const Username: React.FC<{}> = ({ }) => {
 
   return (
     <div>
-      <Switch show={user}>
+      <Switch show={!loading && user}>
         <div className='flex flex-row items-baseline'>
           <span children={`Hi, ${user?.name}`} />
           &nbsp;
@@ -25,7 +25,7 @@ const Username: React.FC<{}> = ({ }) => {
                              border-black text-xs opacity-60' />
         </div>
         <Link className=''
-              href='login'>
+              href='/login'>
           login
         </Link>
       </Switch>

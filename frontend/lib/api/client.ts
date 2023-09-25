@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloClient, ApolloLink, HttpLink, InMemoryCache, concat } from "@apollo/client";
 import {User, UserWithAuth } from '@/lib/types'
 import { LS } from "../common/browser";
 import { LOGIN, SIGNUP } from "./gql";
@@ -36,6 +36,10 @@ class Auth {
 
   get user() {
     return this._user_with_auth?.user;
+  }
+
+  get token() {
+    return this._user_with_auth?.authToken;
   }
 
   login = async (email: string, password: string) => {
@@ -97,11 +101,30 @@ export class Client {
     config: Config
   ) {
     this._config = config
-    this._gql_client = new ApolloClient({
-      uri: this._config.endpoint,
-      cache: new InMemoryCache(),
-    });
     this._auth = new Auth(this);
+
+    const httpLink = new HttpLink({ uri: this._config.endpoint });
+    const authMiddleware = new ApolloLink((operation, forward) => {
+      // add the authorization to the headers
+      operation.setContext(({ headers = {} }) => ({
+        headers: {
+          ...headers,
+          authorization: `Bearer ${this._auth?.token}` || null,
+        }
+      }));
+    
+      return forward(operation);
+    })
+    
+    const client = new ApolloClient(
+      {
+        cache: new InMemoryCache(),
+        link: concat(authMiddleware, httpLink),
+      }
+    );
+
+    this._gql_client = client;
+
 
     console.log('tt ', this._auth)
   }
