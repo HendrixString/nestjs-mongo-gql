@@ -10,6 +10,7 @@ import { Asset, User } from '@/lib/types'
 import { getClient } from '@/lib/api/client'
 import { CREATE_ASSET } from '@/lib/api/gql'
 import { useRouter } from 'next/navigation'
+import { text_to_tokens } from '@/app/utils/text'
 
 const fields = [
   {
@@ -76,8 +77,9 @@ export default function() {
         },
         {}
       )
+      
       let tags = (ep.tags as unknown) as string
-      ep.tags = !tags.trim() ? [] : tags?.trim()?.split(" ").map(t => t.trim()).filter(Boolean);
+      ep.tags = text_to_tokens(tags);
       ep.price = parseFloat(String(ep.price ));
 
       console.log('tags ', tags)
@@ -93,7 +95,6 @@ export default function() {
                 ...ep
               }
             },
-            
           }
         )
 

@@ -2,8 +2,10 @@ import { useCallback, useEffect, useState } from "react"
 import { getClient } from "@/lib/api/client"
 import { User } from "@/lib/types"
 
+/**
+ * A React Hook for managing a reactive session of user state.
+ */
 const useUser = () => {
-  // const [user, setUser] = useState<User>(getClient()?.auth?.user)
   const [user, setUser] = useState<User>()
   const [loading, setLoading] = useState<boolean>(true)
 
@@ -13,9 +15,10 @@ const useUser = () => {
       setUser(getClient()?.auth?.user)
       setLoading(false);
 
+      // Subscribe to auth state events from the main api
       return getClient().auth.subscribe(
         (u: User) => {
-          console.log('sub ', u)
+          // console.log('sub ', u)
           setUser(u);
         }
       )

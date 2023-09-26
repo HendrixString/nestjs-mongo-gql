@@ -17,19 +17,19 @@ const IMG = "https://i.pinimg.com/550x/fc/07/40/fc0740d7c26d93974e117cb88a81bc36
 const AssetListItem = ({ asset, ...rest } : Props ) => {
   const { user } = useUser()
   const youOwnIt = asset?.owner && asset?.owner?._id===user?._id
-
+  console.log(asset.image)
   return (
 <Link href={`/assets/${asset?._id}`}>
 <div className='h-fit w-full bg-slate-100 border rounded-md shadow-sm
                 flex flex-col relative overflow-clip cursor-pointer '>
   <div className='w-full h-fit overflow-clip'>
-    <img src={asset?.image ?? IMG} 
-        className='bg-slate-100 w-full h-40 object-cover
+    <img src={asset?.image} 
+        className='bg-slate-100 w-full min-w-[10rem] h-40 object-cover
                   hover:scale-105 transition-all duration-300' />
   </div>                  
   <div className='p-2'>
+  <Price price={asset?.price} />
     <Capsule children={asset?.tags?.[0]} />
-    <Price price={asset?.price} />
   </div>
   <ShowIf show={youOwnIt}>
     <p className='flex flex-row w-fit items-center text-white text-xs

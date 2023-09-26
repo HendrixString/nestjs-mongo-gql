@@ -9,7 +9,7 @@ interface Props {
 
 const ListNavigator = ({ label, labelRight, onPrev=undefined, onNext=undefined }: Props) => {
   return (
-<div className='flex flex-row justify-between items-center'>
+<div className='flex flex-row justify-between items-center w-full'>
   <span children={label} 
         className='text-sm font-normal text-gray-500'/>
   <div className='flex flex-row items-center text-2xl text-gray-600'>

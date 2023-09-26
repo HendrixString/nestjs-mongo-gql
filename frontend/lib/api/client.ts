@@ -152,6 +152,6 @@ export const initClient = (config: Config) => {
 }
 
 export const getClient = () => {
-  console.log('getClient')
+  // console.log('getClient')
   return client;
 }

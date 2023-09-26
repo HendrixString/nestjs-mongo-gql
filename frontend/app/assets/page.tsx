@@ -1,11 +1,12 @@
 "use client"
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Asset, PaginatedAssets } from '@/lib/types'
+import { useMemo, useState } from 'react'
+import { Asset } from '@/lib/types'
 import ListNavigator from '@/comps/list-navigator'
 import AssetListItem from '@/comps/asset-list-item'
 import { ShowIf } from '@/comps/show-if'
 import useAssets from '@/lib/hooks/use-assets'
+import { text_to_tokens } from '../utils/text'
 
 const test = {
   "data": {
@@ -114,35 +115,74 @@ const test = {
   }
 }
 
-export default function() {
+interface SearchParams {
+  [key: string]: string | string[] | undefined
+}
+
+interface Params {
+  searchParams?: SearchParams
+}
+
+const tags_to_filters = (text: string) => {
+  const tags: string[] = text_to_tokens(text)
+  if(tags.length==0)
+    return undefined;
+
+  return {
+    "tags": {
+      "$in" : tags 
+    }
+  }
+}
+
+const NoResults = () => {
+  return (
+<p children='No results :(' 
+    className='mt-5 text-2xl text-gray-500 mx-auto w-fit'/>    
+  )
+}
+
+export default function({ searchParams } : Params) {
   const [warning, setWarning] = useState<string>()
+
+  // build the filters object
+  const filters = useMemo(
+    () => {
+      return tags_to_filters(searchParams?.tags as string)
+    }, [searchParams?.tags]
+  )
+
+  // hook for assets pagination and filtering
   const {
-    pages_count, page, loading, resolvedData, 
+    pages_count, items_count, page, loading, resolvedData, 
     previous, next
-  } = useAssets()
+  } = useAssets(0, 10, filters)
 
   const assets: Asset[] = resolvedData?.assets?.assets ?? []
   const count_string = `${resolvedData?.assets?.count} results`;
   let page_string = pages_count ? `${page + 1} / ${pages_count}` : '';
 
+  if(items_count==0 && !loading)
+    return (<NoResults/>)
+
   return (
 <main className="bg-slate-50 m-5">
-  <div className='w-fit mx-auto'>
+  <div className='w-full max-w-2xl mx-auto'>
     <ShowIf show={resolvedData}>
       <ListNavigator label={count_string} labelRight={page_string} 
                       onPrev={previous} onNext={next} />
     </ShowIf>
     <div className='grid
                     grid-cols-2 gap-5
-                  sm:grid-cols-3
-                  max-w-2xl'>
-    {
-      assets.map(
-        (asset, ix) => (
-          <AssetListItem asset={asset} key={asset._id} />
+                    sm:grid-cols-3
+                    w-full'>
+      {
+        assets.map(
+          (asset, ix) => (
+            <AssetListItem asset={asset} key={asset._id} />
+          )
         )
-      )
-    }
+      }
     </div>     
   </div>
 </main>

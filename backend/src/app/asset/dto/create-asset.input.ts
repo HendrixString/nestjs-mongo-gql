@@ -15,7 +15,6 @@ export class CreateAssetInput {
   @Field(() => String)
   @IsString()
   @MinLength(3)
-  @MaxLength(25)
   title: string;
 
   @Field(() => String, {nullable: true})

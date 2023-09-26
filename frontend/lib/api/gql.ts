@@ -59,6 +59,7 @@ query assets($limit: Int, $skip: Int, $filters: JSONObject) {
       _id
       description
       title
+      image
       owner {
         name
         _id

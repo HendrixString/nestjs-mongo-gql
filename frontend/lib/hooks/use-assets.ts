@@ -4,7 +4,14 @@ import { PaginatedAssets } from "../types";
 import { GET_ASSETS } from "../api/gql";
 import { getClient } from "../api/client";
 
-const useAssets = ($page = 0, $limit = 10) => {
+/**
+ * A react Hook for filtering and paginating assets from the server
+ * @param $page page index
+ * @param $limit items per page 
+ * @param filters mongodb query filters
+ * @returns 
+ */
+const useAssets = ($page = 0, $limit = 10, filters=undefined) => {
 
   const [page, setPage] = useState($page);
   const [limit, setLimit] = useState($limit);
@@ -13,6 +20,7 @@ const useAssets = ($page = 0, $limit = 10) => {
       variables: {
         limit: limit,
         skip: page * limit,
+        filters
       },
       client: getClient().gql
     }
@@ -29,6 +37,11 @@ const useAssets = ($page = 0, $limit = 10) => {
     }, [resolvedData, limit]
   )
 
+  const items_count = useMemo(
+    () => resolvedData ? resolvedData.assets.count : 0
+    , [resolvedData]
+  )
+
   const previous = useCallback(
     () => {
       setPage(ix => Math.max(ix-1, 0))
@@ -42,7 +55,7 @@ const useAssets = ($page = 0, $limit = 10) => {
   )
 
   return {
-    pages_count, page, loading, resolvedData,
+    pages_count, items_count, page, loading, resolvedData,
     previous, next
   }
 }
