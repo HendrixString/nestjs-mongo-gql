@@ -1,11 +1,12 @@
 # Nextjs real estate demo
 
 This frontend supports many things:
+
 0. signup and login with JWT (In the future I will add `refresh-token` as well)
 1. API client with `graph-ql`
 2. User session management, which is reactive
 3. Creating assets (for Admin roles only, navigate to `/assets/create`)
-4. Searching and Filttering with pagination
+4. Searching and Filtering with pagination
 5. Owning an asset
 6. React Hooks to support
   - `useUser` - reactive user state
