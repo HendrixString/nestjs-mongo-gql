@@ -30,6 +30,10 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Dev Guide
+`/app` - contains the nextjs app router.  
+`comps` - reusable react components.  
+`lib` - client lib for interacting with backend
 
 ## Todo
 1. Add `refresh-token`
@@ -37,4 +41,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## License
 This work belongs to Tomer Shalev. If you want to use it, you will have to
-be granted a permission.
+be granted a permission. Opinions are my own.
