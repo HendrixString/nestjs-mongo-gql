@@ -1,9 +1,11 @@
 "use client"
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Asset, PaginatedAssets } from '@/lib/types'
 import ListNavigator from '@/comps/list-navigator'
 import AssetListItem from '@/comps/asset-list-item'
+import { ShowIf } from '@/comps/show-if'
+import useAssets from '@/lib/hooks/use-assets'
 
 const test = {
   "data": {
@@ -113,52 +115,23 @@ const test = {
 }
 
 export default function() {
-  const refs = useRef({})
   const [warning, setWarning] = useState<string>()
-  // const { loading, data, refetch } = useQuery<{ assets: PaginatedAssets }>(GET_ASSETS, {
-  //   variables: {
-  //     limit: 10,
-  //     skip: 0,
-  //   },
-  //   client: getClient().gql
-  // })
+  const {
+    pages_count, page, loading, resolvedData, 
+    previous, next
+  } = useAssets()
 
-  const onPrev = useCallback(
-    async () => {
- 
-    }, []
-   )
- 
-  const onNext = useCallback(
-   async () => {
-
-   }, []
-  )
-
-  const onClick = useCallback(
-    async () => {
-      setWarning(undefined)
-      
-      // send to api
-      try {
-      } catch(e) {
-        setWarning('sign up error')
-      }
-      
-    }, []
-  )
-
-  let data = test.data;
-  const assets: Asset[] = data?.assets?.assets ?? []
-  const count_string = `${data?.assets?.count} results`
-  
-  if(!data)
-    return null;
+  const assets: Asset[] = resolvedData?.assets?.assets ?? []
+  const count_string = `${resolvedData?.assets?.count} results`;
+  let page_string = pages_count ? `${page + 1} / ${pages_count}` : '';
 
   return (
 <main className="bg-slate-50 m-5">
   <div className='w-fit mx-auto'>
-    <ListNavigator label={count_string} onPrev={onPrev} onNext={onNext} />
+    <ShowIf show={resolvedData}>
+      <ListNavigator label={count_string} labelRight={page_string} 
+                      onPrev={previous} onNext={next} />
+    </ShowIf>
     <div className='grid
                     grid-cols-2 gap-5
                   sm:grid-cols-3
