@@ -52,6 +52,25 @@ query Asset($input: ID!) {
 }
 `
 
+export const GET_ASSETS = gql`
+query assets($limit: Int, $skip: Int, $filters: JSONObject) {
+  assets(limit: $limit, skip: $skip, filters: $filters) {
+    assets {
+      _id
+      description
+      title
+      owner {
+        name
+        _id
+      }
+      price
+      tags
+    }
+    count
+  }
+}
+`
+
 export const OWN_ASSET = gql`
 mutation ownAsset($input: BuyAssetInput!) {
   ownAsset(input: $input) {

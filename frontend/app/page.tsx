@@ -3,14 +3,16 @@
 import Image from 'next/image'
 import Search from '../comps/search'
 import Navbar from '../comps/navbar'
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
+  const router = useRouter()
 
-  const onSearch = useCallback(
-    text => {
-      console.log('text: ', text)
-    }, []
+  useEffect(
+    () => {
+      router.push('/assets');
+    }
   )
 
   return (

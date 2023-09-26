@@ -17,6 +17,11 @@ export interface Asset {
   owner?: User;
 }
 
+export interface PaginatedAssets {
+  assets: Asset[];
+  count: number;
+}
+
 export interface UserWithAuth {
   user?: User;
   authToken?: string;

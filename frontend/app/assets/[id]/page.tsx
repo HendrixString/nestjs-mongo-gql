@@ -10,6 +10,8 @@ import { getClient } from '@/lib/api/client'
 import { Asset } from '@/lib/types'
 import { ShowIf, Switch } from '@/comps/show-if'
 import { AiTwotoneStar } from 'react-icons/ai'
+import Capsule from '@/comps/capsule'
+import Price from '@/comps/price'
 
 export default function({ params }: { params: { id: string } }) {
   const [warning, setWarning] = useState<string>()
@@ -76,11 +78,8 @@ export default function({ params }: { params: { id: string } }) {
       <p children={asset?.title} className='text-xl font-bold text-gray-500' />
       <p children={asset?.description} className='text-base text-gray-500'/>
       <div className='flex flex-row justify-between items-center'>
-        <p children={asset?.price + '$'} className='text-green-600 font-mono font-bold' />
-        <span children={asset?.tags?.[0]} 
-                  className='bg-cyan-500 text-white text-xs 
-                              border tracking-wider rounded-full 
-                              px-1.5 border-cyan-400' />
+        <Price price={asset?.price} />
+        <Capsule children={asset?.tags?.[0]} />
       </div>
       <Switch show={youOwnIt}>
         <div className={`w-full bg-teal-600 text-white p-3 
