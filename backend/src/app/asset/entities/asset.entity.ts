@@ -45,15 +45,6 @@ export class Asset {
   @Prop()
   @Field(() => Date, { description: 'Updated At', defaultValue: 0 })
   updatedAt?: Date
-  
-  // @Field(() => Author)
-  // @Prop({ type: MongooSchema.Types.ObjectId, ref: 'Author' })
-  // author: Author;
-
-
-  // @Field(() => [User])
-  // @Prop({ type: [{ type: MongooSchema.Types.ObjectId, ref: 'User' }] })
-  // readers: User[];
 }
 
 @ObjectType()
