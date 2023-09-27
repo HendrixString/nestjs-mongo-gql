@@ -7,6 +7,8 @@ import { LoginUserResponse } from './dto/login.response';
 import { LoginUserInput } from './dto/login-user.input';
 import { GqlAuthGuard } from './gql-auth.guards';
 import { Logger } from '@nestjs/common';
+import { JwtRefreshStrategy } from './jwt-refresh.strategy';
+import { JwtRefreshAuthGuard } from './jwt-refresh-auth.guards';
 
 @Resolver()
 export class AuthResolver {
@@ -23,6 +25,15 @@ export class AuthResolver {
     console.log('input: ', input)
     // context.res.cookie('some-cookie', 'some-value');
     return this.authService.login(context.user);
+  }
+
+  @Mutation(() => LoginUserResponse)
+  @UseGuards(JwtRefreshAuthGuard)
+  refresh(
+    @Context() context: any,
+  ) {
+    console.log('context.user: ', context.req.user)
+    return this.authService.refresh(context.req.user);
   }
 
   @Mutation(() => LoginUserResponse)

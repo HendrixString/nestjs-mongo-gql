@@ -34,7 +34,8 @@ export class AssetService {
       .populate('owner')
       .skip(skip)
       .limit(limit)
-    log('assets ', assets)
+      .sort({ "updatedAt" : -1 })
+
     return {
       assets,
       count,

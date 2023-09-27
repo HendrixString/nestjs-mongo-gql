@@ -7,5 +7,8 @@ export class LoginUserResponse {
   user: User;
 
   @Field()
-  authToken: string;
+  accessToken: string;
+
+  @Field()
+  refreshToken: string;
 }

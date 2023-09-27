@@ -24,7 +24,7 @@ export class UserResolver {
     description: 'This will be like getting the user profile by his id',
   })
   getUserById(
-    @Args('id', { type: () => String }) id: MongooSchema.Types.ObjectId,
+    @Args('id', { type: () => String }) id: string,
   ) {
     return this.userService.getUserById(id);
   }

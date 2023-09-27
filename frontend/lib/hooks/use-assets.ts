@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { PaginatedAssets } from "../types";
 import { GET_ASSETS } from "../api/gql";
 import { getClient } from "../api/client";
@@ -24,6 +24,12 @@ const useAssets = ($page = 0, $limit = 10, filters=undefined) => {
       },
       client: getClient().gql
     }
+  )
+
+  useEffect(
+    () => {
+      setPage(0)
+    }, [filters]
   )
 
   const resolvedData = useMemo(
