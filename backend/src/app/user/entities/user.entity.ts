@@ -8,22 +8,35 @@ import { Role } from 'src/app/auth/entities/roles';
 @Schema()
 export class User {
   @Field(() => String)
-  _id: MongooSchema.Types.ObjectId;
+  _id?: MongooSchema.Types.ObjectId;
 
   // Add user properties
   @Field(() => String)
   @Prop()
-  name: string;
+  name?: string;
 
   @Field(() => String)
   @Prop({ unique: true })
-  email: string;
+  email?: string;
 
   @Prop()
-  password: string;
+  password?: string;
 
+  @Field(() => [String])
   @Prop({default : [Role.User]})
-  roles: string[];
+  roles?: string[];
+
+  @Prop()
+  refreshToken?: string;
+
+  @Prop()
+  @Field(() => Date, { description: 'Created At' })
+  createdAt?: Date
+
+  @Prop()
+  @Field(() => Date, { description: 'Updated At' })
+  updatedAt?: Date
+  
 }
 
 @ObjectType()

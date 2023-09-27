@@ -24,5 +24,6 @@ export interface PaginatedAssets {
 
 export interface UserWithAuth {
   user?: User;
-  authToken?: string;
+  accessToken?: string;
+  refreshToken?: string;
 }

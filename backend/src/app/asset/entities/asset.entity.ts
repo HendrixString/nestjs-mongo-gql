@@ -4,7 +4,7 @@ import { Schema as MongooSchema } from 'mongoose';
 import { User } from '../../user/entities/user.entity';
 
 @ObjectType()
-@Schema()
+@Schema({ timestamps: true })
 export class Asset {
   @Field(() => String)
   _id: MongooSchema.Types.ObjectId;
@@ -38,6 +38,14 @@ export class Asset {
   @Prop({default: []})
   tags?: string[];
 
+  @Prop()
+  @Field(() => Date, { description: 'Created At', defaultValue: 0 })
+  createdAt?: Date
+
+  @Prop()
+  @Field(() => Date, { description: 'Updated At', defaultValue: 0 })
+  updatedAt?: Date
+  
   // @Field(() => Author)
   // @Prop({ type: MongooSchema.Types.ObjectId, ref: 'Author' })
   // author: Author;

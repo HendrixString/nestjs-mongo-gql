@@ -39,7 +39,7 @@ class Auth {
   }
 
   get token() {
-    return this._user_with_auth?.authToken;
+    return this._user_with_auth?.accessToken;
   }
 
   login = async (email: string, password: string) => {

@@ -34,7 +34,7 @@ export class UserService {
     return this.userModel.findOne({ email });
   }
 
-  getUserById(id: MongooSchema.Types.ObjectId) {
+  getUserById(id: string) {
     return this.userModel.findById(id);
   }
 
@@ -43,6 +43,15 @@ export class UserService {
     updateUserInput: UpdateUserInput,
   ) {
     return await this.userModel.findByIdAndUpdate(id, updateUserInput, {
+      new: true,
+    });
+  }
+
+  updateUserRaw(
+    id: MongooSchema.Types.ObjectId,
+    user: User,
+  ) {
+    return this.userModel.findByIdAndUpdate(id, user, {
       new: true,
     });
   }

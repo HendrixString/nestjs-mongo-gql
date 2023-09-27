@@ -3,7 +3,8 @@ import { gql } from '@apollo/client';
 export const SIGNUP = gql`
 mutation signUp($input: CreateUserInput!) {
   signup(input: $input) {
-    authToken
+    accessToken
+    refreshToken
     user {
       name
       email
@@ -16,7 +17,8 @@ mutation signUp($input: CreateUserInput!) {
 export const LOGIN = gql`
 mutation Login($input: LoginUserInput!) {
   login(input: $input) {
-    authToken
+    accessToken
+    refreshToken
     user {
       name
       email
